@@ -8,14 +8,16 @@
 
 ## Problem
 This a real world problem in distinguishing suppliers: how many distinct suppliers are there in the USA spend dataset?
-This is a dataset published by USASpending.gov, that covers every “federal contract, grant, loan, and other financial assistance awards of more than $25,000”. The full dataset has millions of records and many columns, but can be reduced in size by selecting the interesting columns and doing an exact match on those. Interesting numbers to see:
+This is a dataset published by [USASpending.gov](http://usaspending.gov), that covers every “federal contract, grant, loan, and other financial assistance awards of more than $25,000”. The full dataset has millions of records and many columns, but can be reduced in size by selecting the interesting columns and doing an exact match on those. Interesting numbers to see:
 * Number of initial records.
 * Number of records after reducing based on exact supplier/vendor matches.
 * Number of records after reducing further based on “fuzzy” matching criteria. This should
 group together records where the same supplier had slightly different names (such as “W.W. Grainger” and “WW Grainger” or “IBM” and “International Business Machines”). Some of the fuzzy matching logic might also mean matching across columns such as matching vendorname with vendoralternatename. Fields like phonenumber, streetaddress, city, state, and dunsnumber can also provide useful signals.
-*Some measure(s) of accuracy with explanations.
+* Some measure(s) of accuracy with explanations.
 
 Once you have grouped together suppliers what questions does this enable you to answer that you couldn’t answer as well/accurately before performing this curation?
+
+Final output should include a short summary of your solution to the problem and what you found in the data (how many suppliers you found), the script you used (python, Hive, or otherwise) in order to generate clusters of suppliers, and any other interesting results/conclusions.
 
 ## Approach
 I coded the solution in Python (3.8). The basic approach is as follows: 
