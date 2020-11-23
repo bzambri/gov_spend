@@ -20,31 +20,9 @@ Once you have grouped together suppliers what questions does this enable you to 
 Final output should include a short summary of your solution to the problem and what you found in the data (how many suppliers you found), the script you used (python, Hive, or otherwise) in order to generate clusters of suppliers, and any other interesting results/conclusions.
 
 ## Approach
-I coded the solution in Python (3.8). The basic approach is as follows: 
-1. `consumer_complaints.py` opens the input file and calls the functions below.
-2. `get_complaints` reads all the complaints and outputs lists containing the financial products, the years, and the companies of all the complaints. Within `get_complaints`, `validator.complaint_is_valid` makes sure that none of these three fields are empty, and that the first four characters of 'Date received' are numeric. The second check is done because the first four characters should be the year of the complaint (YYYY), which is necessary to complete the task.
-3. `file_complaints` takes the information from step 2 and writes the desired information to `output/report.csv`. Within `file_complaints`, the function `file_product_year` outputs what ends up being each line of `report.csv`. `file_product_year` is called from within `file_complaints` so as to enable multithreading via the `multiprocessing.Pool()` function in Python. Multithreading at the year level speeds up the program by about 33% (based on `test_2`; ~1.5 million complaints) and enables better scaling to large datasets.
-
-## Testing the code
-To be honest, I did not have a lot of time to create a bunch of different test inputs. in the `insight_testsuite` directory, `test_1` is the 5-line example file that was given in the coding challenge. `test_2` was the moderate-sized dataset for which the zip file was provided, but I did not include this in my repo because of the large file size, and also the instructions said that you would be using that as a test anyway. Tests 3–5 were used to see that the code does the right thing in the event of a blank 'Date received,' 'Product,' or 'Company' field. They work fine, but I ended up covering this in the unit test, so maybe it's a bit redundant.
-
-I implemented a unit test, which can be run from the top-most level of this repository with the command: 
-
-`python3.8 -m unittest src/test_validator.py`
-
-`test_validator` contains the following tests:
-1. Return false if date is blank.
-2. Return false if the first four characters of date are nonnumeric.
-3. Return false if product is blank.
-4. Return false if company is blank.
-5. Return true otherwise.
-
-This is intended to make sure that the complaint will be skipped in cases 1–4, and processed in case 5.
-
-## Instructions
-Working in the top-most level of this repository, move the desired `complaints.csv` file into `input/` and execute the run script: 
-
-`./run.sh`
-
-Output will be in `output/report.csv`.
+I coded the solution in Pyspark. The basic approach is as follows: 
+1. Read the files  as a Spark dataframe.
+2. First, I counted the total number of rows (4820022).
+3. In order to do a basic "fuzzy" approach, I removed all commas, spaces, and periods from the 'recipient_names' column. Before doing this, there were 47266 unique recipients. Afterwards, there are 45996. Furthermore, I noticed some ampersands, and thought that this might cause some differences (e.g., 'M & J' vs. 'M AND J'). So I first removed ' AND ' (spaces to avoid removing parts of company names ('rAND corporation'). The result is 45961 unique recipient names, so maybe this step is not so important (I did not check if ' AND ' even occurs in place of '&').
+4. Comparing domestic
 
