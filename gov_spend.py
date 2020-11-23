@@ -1,5 +1,11 @@
+from pyspark import SparkContext
+from pyspark import SparkConf
+from pyspark.sql import SparkSession
 from pyspark.sql import SQLContext
 from pyspark.sql.functions import *
+
+sc = SparkContext()
+spark = SparkSession(sc)
 
 #start SparkSQL session
 sqlContext = SQLContext(sc)
