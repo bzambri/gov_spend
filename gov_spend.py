@@ -9,7 +9,7 @@ df = sqlContext.read.option("header",True).csv("*.csv")
 #count the number of rows (it is 4820022)
 df.count()
 
-#count the unique values in recipient_name (it is 47266)
+#count the unique values in recipient_name (it is 153449)
 df.select('recipient_name').distinct().count()
 
 #delete periods, commas, and spaces from recipient names
@@ -19,7 +19,7 @@ df = df.withColumn('recipient_name', regexp_replace('recipient_name', '\.', ''))
 df = df.withColumn('recipient_name', regexp_replace('recipient_name', ',', ''))
 df = df.withColumn('recipient_name', regexp_replace('recipient_name', ' ', ''))
 
-#count again (it is now 45961)
+#count again (it is now 149582)
 df.select('recipient_name').distinct().count()
 
 #create a global temporary view to execute SQL commands

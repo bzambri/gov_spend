@@ -23,6 +23,6 @@ Final output should include a short summary of your solution to the problem and 
 I coded the solution in Pyspark. The basic approach is as follows: 
 1. Read the files  as a Spark dataframe.
 2. First, I counted the total number of rows (4820022).
-3. In order to do a basic "fuzzy" approach, I removed all commas, spaces, and periods from the 'recipient_names' column. Before doing this, there were 47266 unique recipients. Afterwards, there are 45996. Furthermore, I noticed some ampersands, and thought that this might cause some differences (e.g., 'M & J' vs. 'M AND J'). So I first removed ' AND ' (spaces to avoid removing parts of company names ('rAND corporation'). The result is 45961 unique recipient names, so maybe this step is not so important (I did not check if ' AND ' even occurs in place of '&').
+3. In order to do a basic "fuzzy" approach, I removed all commas, spaces, and periods from the 'recipient_names' column. Before doing this, there were 153449 unique recipients. Afterwards, there are 149606. Furthermore, I noticed some ampersands, and thought that this might cause some differences (e.g., 'M & J' vs. 'M AND J'). So I first removed ' AND ' (spaces to avoid removing parts of company names ('rAND corporation'). The result is 149582 unique recipient names, so maybe this step is not so important (I did not check if ' AND ' even occurs in place of '&').
 4. Comparing domestic
 
